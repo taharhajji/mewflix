@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MEWFLIX — Téléchargements</title>
+<meta name="description" content="Télécharger MEWFLIX pour Windows, macOS, Chromebook et Android TV, et toutes les versions précédentes.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#141518">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="MEWFLIX — Téléchargements">
+<meta property="og:description" content="Windows, macOS, Chromebook et Android TV.">
+<meta property="og:image" content="logo.png">
+<style>
+  :root {
+    --bg: #141518;
+    --panel: #1b1d22;
+    --panel-2: #22252c;
+    --line: #2e323b;
+    --text: #e9eef6;
+    --muted: #9aa4b5;
+    --accent: #dbe6f6;
+    --accent-soft: #9fb3d1;
+    --slate: #4a5570;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 50% -200px, #232a38 0%, var(--bg) 60%) no-repeat, var(--bg);
+    color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 48px 0 24px; text-align: center; }
+  header img { width: 104px; height: 104px; border-radius: 24px; box-shadow: 0 10px 40px rgba(159,179,209,.25); }
+  h1 { font-size: clamp(32px, 6vw, 48px); letter-spacing: 2px; margin: 18px 0 6px; color: var(--accent); }
+  .tagline { color: var(--muted); margin: 0 auto; max-width: 560px; }
+
+  .hero {
+    margin: 28px auto 8px; max-width: 620px; padding: 22px; text-align: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .hero .label { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+  .hero .btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .hero .hint { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+    padding: 12px 18px; border-radius: 12px; text-decoration: none; font-weight: 600;
+    background: var(--accent); color: #1a2030; border: 1px solid var(--accent);
+    transition: transform .08s ease, background .15s ease;
+    min-height: 46px; text-align: center;
+  }
+  .btn:hover { background: #fff; }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; color: var(--accent); border-color: var(--slate); }
+  .btn.ghost:hover { background: var(--panel-2); }
+  .btn small { font-weight: 400; opacity: .75; }
+  .btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+
+  h2 { font-size: 22px; margin: 44px 0 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .card.mine { border-color: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent-soft) inset; }
+  .card h3 { margin: 0; font-size: 19px; display: flex; align-items: center; gap: 10px; }
+  .card .ico { width: 28px; height: 28px; flex: none; color: var(--accent); }
+  .card .req { color: var(--muted); font-size: 14px; margin: 0; }
+  .card .stack { display: flex; flex-direction: column; gap: 8px; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--slate); color: var(--accent); }
+
+  details { border-top: 1px solid var(--line); padding-top: 10px; }
+  details summary { cursor: pointer; color: var(--accent-soft); font-weight: 600; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
+  details ol, details ul { padding-left: 20px; margin: 10px 0 0; color: #cfd6e2; font-size: 15px; }
+  details li { margin: 4px 0; }
+
+  code, .code {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 14px;
+    background: #0f1013; border: 1px solid var(--line); border-radius: 8px; padding: 2px 6px;
+  }
+  .copy { display: flex; gap: 6px; align-items: center; margin: 6px 0; flex-wrap: wrap; }
+  .copy .code { padding: 8px 10px; overflow-x: auto; max-width: 100%; }
+  .copy button {
+    background: var(--panel-2); color: var(--accent); border: 1px solid var(--slate);
+    border-radius: 8px; padding: 7px 10px; cursor: pointer; font: inherit; font-size: 13px;
+  }
+  .big-link { font-size: 26px; font-weight: 700; letter-spacing: 1px; text-align: center;
+    background: #0f1013; border: 1px dashed var(--accent-soft); border-radius: 12px; padding: 12px; color: var(--accent); }
+
+  .history { display: flex; flex-direction: column; gap: 10px; }
+  .rel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 0; }
+  .rel > summary { padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; color: var(--text); }
+  .rel > summary::before { color: var(--accent-soft); }
+  .rel .when { color: var(--muted); font-size: 14px; }
+  .rel .files { padding: 0 16px 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+  .file { display: flex; justify-content: space-between; gap: 10px; align-items: center;
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; text-decoration: none; color: var(--text); }
+  .file:hover { border-color: var(--accent-soft); }
+  .file .k { font-weight: 600; font-size: 14px; }
+  .file .n { color: var(--muted); font-size: 12px; word-break: break-all; }
+  .file .s { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs button {
+    background: var(--panel); color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 14px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  .tabs button[aria-selected="true"] { color: #1a2030; background: var(--accent); border-color: var(--accent); }
+
+  .note { color: var(--muted); font-size: 14px; }
+  .status { color: var(--muted); font-size: 14px; text-align: center; padding: 18px; }
+  footer { margin: 56px 0 32px; color: var(--muted); font-size: 14px; text-align: center; }
+  footer p { margin: 6px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.png" alt="Logo MEWFLIX" width="104" height="104">
+    <h1>MEWFLIX</h1>
+    <p class="tagline">Films, séries, animés et TV en direct. Une vraie application, sur ordinateur et sur télé.</p>
+  </header>
+
+  <section class="hero" id="hero" aria-live="polite">
+    <div class="label" id="hero-label">Recherche de la dernière version…</div>
+    <div class="btns" id="hero-btns"></div>
+    <div class="hint" id="hero-hint"></div>
+  </section>
+
+  <h2>Choisir son appareil</h2>
+  <div class="grid">
+
+    <article class="card" id="card-windows">
+      <h3><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>Windows</h3>
+      <p class="req">Windows 10 ou 11, 64 bits.</p>
+      <div class="stack">
+        <a class="btn" data-kind="win-setup" aria-disabled="true" href="#">Installer <small></small></a>
+        <a class="btn ghost" data-kind="win-portable" aria-disabled="true" href="#">Version portable <small></small></a>
+      </div>
+      <details>
+        <summary>Comment installer</summary>
+        <ol>
+          <li>Télécharger <b>Installer</b> et l'ouvrir.</li>
+          <li>Si Windows affiche « Windows a protégé votre ordinateur » : cliquer <b>Informations complémentaires</b> puis <b>Exécuter quand même</b>. L'app n'a pas de certificat payant, c'est tout.</li>
+          <li>MEWFLIX s'ouvre et un raccourci est créé sur le Bureau.</li>
+        </ol>
+        <ul>
+          <li>La <b>version portable</b> se lance sans installation (clé USB possible), mais ne se met pas à jour toute seule.</li>
+          <li><b>Mode TV</b> (PC branché sur une télé, téléphone en télécommande) : bouton « Mode TV » dans la barre du haut, ou touche <b>F9</b>.</li>
+        </ul>
+      </details>
+    </article>
+
+    <article class="card" id="card-mac">
+      <h3><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.2 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-4zM14 5.6c.7-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.3z"/></svg>macOS</h3>
+      <p class="req">Un seul fichier selon le Mac (menu Pomme → À propos de ce Mac → « Puce »).</p>
+      <div class="stack">
+        <a class="btn" data-kind="mac-arm" aria-disabled="true" href="#">Mac puce Apple (M1 à M4) <small></small></a>
+        <a class="btn ghost" data-kind="mac-x64" aria-disabled="true" href="#">Mac Intel <small></small></a>
+      </div>
+      <details>
+        <summary>Comment installer</summary>
+        <ol>
+          <li>Double-cliquer sur le zip : il donne <b>MEWFLIX.app</b>. La glisser dans <b>Applications</b>.</li>
+          <li>Premier lancement : macOS dit qu'il ne peut pas vérifier l'app → <b>OK</b>. Puis Réglages Système → Confidentialité et sécurité → en bas, « MEWFLIX a été bloqué » → <b>Ouvrir quand même</b>. (macOS 14 ou plus ancien : clic droit sur l'app → Ouvrir.)</li>
+          <li>Si macOS dit « MEWFLIX est endommagé » : le fichier n'est pas abîmé. Cliquer Annuler, ouvrir <b>Terminal</b> (Applications → Utilitaires) et coller :
+            <div class="copy"><span class="code">xattr -cr /Applications/MEWFLIX.app</span><button type="button" data-copy="xattr -cr /Applications/MEWFLIX.app">Copier</button></div>
+            Puis relancer MEWFLIX.</li>
+        </ol>
+      </details>
+    </article>
+
+    <article class="card" id="card-chromebook">
+      <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 8.5h8.2M9 13.8 4.9 6.7M15 13.8l-4.1 7.1"/></svg>Chromebook / Linux</h3>
+      <p class="req">Linux doit être activé sur le Chromebook. Sur un PC Linux (Debian, Ubuntu…), même fichier.</p>
+      <div class="stack">
+        <a class="btn" data-kind="deb-amd64" aria-disabled="true" href="#">Intel / AMD <small></small></a>
+        <a class="btn ghost" data-kind="deb-arm64" aria-disabled="true" href="#">ARM (MediaTek, Snapdragon) <small></small></a>
+      </div>
+      <details>
+        <summary>Comment installer</summary>
+        <ol>
+          <li>Activer Linux une fois : Paramètres → Avancés → Développeurs → « Environnement de développement Linux » → Activer.</li>
+          <li>Pour savoir quel fichier prendre : taper <code>chrome://version</code> dans Chrome, ligne « Platform » : <b>x86_64</b> = Intel/AMD, <b>aarch64</b> = ARM.</li>
+          <li>Copier le <code>.deb</code> dans « Fichiers Linux » (app Fichiers), double-cliquer dessus → <b>Installer</b>. MEWFLIX apparaît dans le lanceur, dossier « Applications Linux ».</li>
+          <li>Si l'installation réclame des bibliothèques, dans l'app Terminal :
+            <div class="copy"><span class="code">sudo apt install -y ./MEWFLIX-*-linux-amd64.deb</span><button type="button" data-copy="sudo apt install -y ./MEWFLIX-*-linux-amd64.deb">Copier</button></div>
+            (ou <code>…-arm64.deb</code> selon le fichier).</li>
+        </ol>
+      </details>
+    </article>
+
+    <article class="card" id="card-tv">
+      <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><path d="M8 21h8M12 17.5V21"/></svg>Android TV <span class="badge">télé</span></h3>
+      <p class="req">Télés et boîtiers Android TV / Google TV (TCL, Sony, Philips, Xiaomi, Chromecast avec Google TV…). Tout se fait à la télécommande.</p>
+      <div class="big-link" aria-label="Adresse à taper dans Downloader">is.gd/mewflixtv</div>
+      <div class="stack">
+        <a class="btn ghost" data-kind="apk" aria-disabled="true" href="#">Télécharger l'APK <small></small></a>
+      </div>
+      <details>
+        <summary>Comment installer (10 minutes)</summary>
+        <ol>
+          <li>Sur la télé, ouvrir le <b>Google Play Store</b> et installer l'appli <b>Downloader</b> (icône orange, éditeur AFTVnews).</li>
+          <li>Dans Downloader, écrire l'adresse <b>is.gd/mewflixtv</b> puis <b>Go</b>.</li>
+          <li>La télé bloque les applis hors Play Store : appuyer sur <b>Paramètres</b> dans le message, activer <b>Downloader</b>, puis Retour.<br>
+            Sinon : Paramètres → Applications → Sécurité et restrictions → Sources inconnues → Downloader.</li>
+          <li><b>Installer</b> → <b>Terminé</b>, puis supprimer le fichier téléchargé (Delete) : ça ne supprime pas l'appli.</li>
+          <li>Bouton Maison → Applications → <b>MEWFLIX</b>.</li>
+        </ol>
+        <ul>
+          <li>Flèches pour se déplacer, OK pour choisir, Retour pour revenir. Flèche gauche au bord : menu.</li>
+          <li>Pas de mise à jour automatique sur télé : refaire les étapes 2 à 4 avec la même adresse pour installer une nouvelle version par-dessus.</li>
+        </ul>
+      </details>
+    </article>
+  </div>
+
+  <h2 id="versions">Toutes les versions</h2>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-tab="desktop">Ordinateur</button>
+    <button type="button" role="tab" aria-selected="false" data-tab="tv">Android TV</button>
+  </div>
+  <div class="history" id="history"><div class="status">Chargement…</div></div>
+  <p class="note">Les apps Windows, macOS et Chromebook vérifient les nouvelles versions au démarrage (menu Aide → « Vérifier les mises à jour »). Pas besoin de revenir ici à chaque version.</p>
+
+  <footer>
+    <p>Fichiers hébergés sur <a href="https://github.com/taharhajji/MovixOpenSource/releases">GitHub Releases</a>.</p>
+    <p>Licence CC BY-NC 4.0 · Usage non commercial.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var REPO = 'taharhajji/MovixOpenSource';
+  var API = 'https://api.github.com/repos/' + REPO + '/releases?per_page=100';
+  var SNAPSHOT = 'releases.json';
+  var TIMEOUT_MS = 7000;
+  // La release tv-v1.0.0 porte le fichier servi par le lien court (son contenu
+  // est remplacé à chaque version) : ce n'est pas une version à lister.
+  var SHORT_LINK_TAG = 'tv-v1.0.0';
+
+  var KINDS = [
+    { id: 'win-setup',    re: /^MEWFLIX-Setup-.*\.exe$/i, label: 'Windows · installation' },
+    { id: 'win-portable', re: /portable\.exe$/i,          label: 'Windows · portable' },
+    { id: 'mac-arm',      re: /mac-arm64\.zip$/i,         label: 'macOS · puce Apple' },
+    { id: 'mac-x64',      re: /mac-x64\.zip$/i,           label: 'macOS · Intel' },
+    { id: 'deb-amd64',    re: /linux-amd64\.deb$/i,       label: 'Chromebook / Linux · Intel/AMD' },
+    { id: 'deb-arm64',    re: /linux-arm64\.deb$/i,       label: 'Chromebook / Linux · ARM' },
+    { id: 'apk',          re: /\.apk$/i,                  label: 'Android TV · APK' }
+  ];
+
+  function kindOf(name) {
+    for (var i = 0; i < KINDS.length; i++) if (KINDS[i].re.test(name)) return KINDS[i];
+    return null; // latest.yml, .blockmap… : fichiers techniques des mises à jour
+  }
+
+  function formatSize(bytes) {
+    if (!bytes) return '';
+    var mb = bytes / (1024 * 1024);
+    if (mb >= 1) return mb.toFixed(mb >= 10 ? 0 : 1).replace('.', ',') + ' Mo';
+    return Math.max(1, Math.round(bytes / 1024)) + ' Ko';
+  }
+
+  function formatDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function versionOf(tag) { return String(tag).replace(/^(tv-)?v/i, ''); }
+  function isDesktopTag(tag) { return /^v\d/i.test(tag); }
+  function isTvTag(tag) { return /^tv-v\d/i.test(tag) && tag !== SHORT_LINK_TAG; }
+
+  // N'accepte que des liens vers le dépôt des fichiers (données venues du réseau).
+  function isSafeUrl(url) {
+    return typeof url === 'string' && url.indexOf('https://github.com/' + REPO + '/') === 0;
+  }
+
+  function fetchJson(url) {
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, TIMEOUT_MS) : null;
+    var clear = function () { if (timer) clearTimeout(timer); };
+    return fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function (res) {
+      clear();
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }, function (err) { clear(); throw err; });
+  }
+
+  function normalize(list) {
+    if (!Array.isArray(list)) throw new Error('format inattendu');
+    return list
+      .filter(function (r) { return r && !r.draft && !r.prerelease && typeof r.tag_name === 'string'; })
+      .map(function (r) {
+        var assets = (r.assets || [])
+          .map(function (a) { return { name: a.name, size: a.size, url: a.browser_download_url, kind: kindOf(String(a.name)) }; })
+          .filter(function (a) { return a.kind && isSafeUrl(a.url); });
+        return { tag: r.tag_name, date: r.published_at, url: r.html_url, assets: assets };
+      })
+      .sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
+  }
+
+  // API GitHub en direct (toujours à jour) ; instantané du dépôt si elle ne répond pas.
+  function load() {
+    return fetchJson(API).then(normalize).catch(function () {
+      return fetchJson(SNAPSHOT).then(normalize);
+    });
+  }
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === 'text') node.textContent = attrs[k];
+      else if (k === 'className') node.className = attrs[k];
+      else node.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(function (c) { if (c) node.appendChild(c); });
+    return node;
+  }
+
+  function findAsset(release, kindId) {
+    if (!release) return null;
+    for (var i = 0; i < release.assets.length; i++) if (release.assets[i].kind.id === kindId) return release.assets[i];
+    return null;
+  }
+
+  function fillButtons(desktop, tv) {
+    document.querySelectorAll('[data-kind]').forEach(function (btn) {
+      var kindId = btn.getAttribute('data-kind');
+      var release = kindId === 'apk' ? tv : desktop;
+      var asset = findAsset(release, kindId);
+      if (!asset) return;
+      btn.href = asset.url;
+      btn.removeAttribute('aria-disabled');
+      btn.title = asset.name;
+      var small = btn.querySelector('small');
+      if (small) small.textContent = 'v' + versionOf(release.tag) + (asset.size ? ' · ' + formatSize(asset.size) : '');
+    });
+  }
+
+  function detectPlatform() {
+    var ua = navigator.userAgent || '';
+    var linux = { card: 'card-chromebook', kinds: ['deb-amd64', 'deb-arm64'] };
+    if (/CrOS/.test(ua)) return Promise.resolve(Object.assign({ name: 'Chromebook' }, linux));
+    if (/Android/.test(ua)) return Promise.resolve({ card: 'card-tv', kinds: [], name: 'Android' });
+    if (/Windows/.test(ua)) return Promise.resolve({ card: 'card-windows', kinds: ['win-setup'], name: 'Windows' });
+    if (/Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua)) {
+      var mac = { card: 'card-mac', kinds: ['mac-arm', 'mac-x64'], name: 'Mac' };
+      var uad = navigator.userAgentData;
+      if (!uad || !uad.getHighEntropyValues) return Promise.resolve(mac);
+      return uad.getHighEntropyValues(['architecture']).then(function (v) {
+        if (v.architecture === 'arm') mac.kinds = ['mac-arm'];
+        else if (v.architecture === 'x86') mac.kinds = ['mac-x64'];
+        return mac;
+      }, function () { return mac; });
+    }
+    if (/Linux/.test(ua)) return Promise.resolve(Object.assign({ name: 'Linux' }, linux));
+    return Promise.resolve(null);
+  }
+
+  function fillHero(platform, desktop) {
+    var label = document.getElementById('hero-label');
+    var btns = document.getElementById('hero-btns');
+    var hint = document.getElementById('hero-hint');
+    btns.textContent = '';
+    if (!platform) {
+      label.textContent = 'Dernière version : ' + (desktop ? versionOf(desktop.tag) : '—') + '. Choisir son appareil ci-dessous.';
+      return;
+    }
+    document.getElementById(platform.card).classList.add('mine');
+    if (platform.name === 'Android') {
+      label.textContent = 'Pas d’appli pour téléphone : MEWFLIX s’installe sur les télés Android TV.';
+      btns.appendChild(el('a', { className: 'btn', href: '#card-tv', text: 'Installer sur la télé' }));
+      return;
+    }
+    label.textContent = 'Recommandé pour ' + platform.name + (desktop ? ' · version ' + versionOf(desktop.tag) : '');
+    platform.kinds.forEach(function (kindId, i) {
+      var asset = findAsset(desktop, kindId);
+      if (!asset) return;
+      btns.appendChild(el('a', { className: i === 0 ? 'btn' : 'btn ghost', href: asset.url, title: asset.name }, [
+        document.createTextNode('Télécharger · ' + asset.kind.label.split(' · ')[1] + ' '),
+        el('small', { text: formatSize(asset.size) })
+      ]));
+    });
+    if (platform.name === 'Mac' && platform.kinds.length > 1) hint.textContent = 'Menu Pomme → À propos de ce Mac → « Puce » : Apple M1 à M4, ou Intel.';
+    if (platform.name === 'Windows') hint.textContent = 'Si Windows affiche un avertissement : « Informations complémentaires » puis « Exécuter quand même ».';
+  }
+
+  function renderHistory(releases, which) {
+    var box = document.getElementById('history');
+    box.textContent = '';
+    var list = releases.filter(function (r) { return which === 'tv' ? isTvTag(r.tag) : isDesktopTag(r.tag); });
+    if (!list.length) { box.appendChild(el('div', { className: 'status', text: 'Aucune version.' })); return; }
+    list.forEach(function (r, i) {
+      var files = el('div', { className: 'files' }, r.assets.map(function (a) {
+        return el('a', { className: 'file', href: a.url, title: a.name }, [
+          el('div', {}, [el('div', { className: 'k', text: a.kind.label }), el('div', { className: 'n', text: a.name })]),
+          el('div', { className: 's', text: formatSize(a.size) })
+        ]);
+      }));
+      if (isSafeUrl(r.url)) {
+        files.appendChild(el('a', { className: 'file', href: r.url }, [
+          el('div', {}, [el('div', { className: 'k', text: 'Page de la version' }), el('div', { className: 'n', text: 'notes et fichiers sur GitHub' })]),
+          el('div', { className: 's', text: '↗' })
+        ]));
+      }
+      var summary = el('summary', {}, [
+        el('strong', { text: 'Version ' + versionOf(r.tag) }),
+        i === 0 ? el('span', { className: 'badge', text: 'dernière' }) : null,
+        el('span', { className: 'when', text: formatDate(r.date) })
+      ]);
+      var details = el('details', { className: 'rel' }, [summary, files]);
+      if (i === 0) details.open = true;
+      box.appendChild(details);
+    });
+  }
+
+  function setupTabs(releases) {
+    var tabs = document.querySelectorAll('[data-tab]');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+        renderHistory(releases, tab.getAttribute('data-tab'));
+      });
+    });
+    renderHistory(releases, 'desktop');
+  }
+
+  function setupCopy() {
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var fail = function () { btn.textContent = 'Sélectionner et copier'; };
+        if (!navigator.clipboard || !navigator.clipboard.writeText) { fail(); return; }
+        navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function () {
+          btn.textContent = 'Copié ✓';
+          setTimeout(function () { btn.textContent = 'Copier'; }, 1500);
+        }, fail);
+      });
+    });
+  }
+
+  function showError() {
+    var link = 'https://github.com/' + REPO + '/releases';
+    document.getElementById('hero-label').textContent = 'Impossible de charger la liste des versions.';
+    var btns = document.getElementById('hero-btns');
+    btns.textContent = '';
+    btns.appendChild(el('a', { className: 'btn', href: link, text: 'Voir les fichiers sur GitHub' }));
+    var box = document.getElementById('history');
+    box.textContent = '';
+    box.appendChild(el('div', { className: 'status' }, [
+      document.createTextNode('La liste n’a pas pu être chargée. '),
+      el('a', { href: link, text: 'Toutes les versions sur GitHub' })
+    ]));
+  }
+
+  setupCopy();
+  load().then(function (releases) {
+    var desktop = releases.filter(function (r) { return isDesktopTag(r.tag); })[0] || null;
+    var tv = releases.filter(function (r) { return isTvTag(r.tag); })[0] || null;
+    fillButtons(desktop, tv);
+    setupTabs(releases);
+    return detectPlatform().then(function (p) { fillHero(p, desktop); });
+  }).catch(showError);
+})();
+</script>
+</body>
+</html>
