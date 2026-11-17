@@ -81,6 +81,9 @@
   details[open] summary::before { content: "▾ "; }
   details ol, details ul { padding-left: 20px; margin: 10px 0 0; color: #cfd6e2; font-size: 15px; }
   details li { margin: 4px 0; }
+  details.security { background: #1f2430; border: 1px solid var(--slate); border-radius: 12px; padding: 12px 14px; }
+  details.security summary { color: var(--accent); }
+  .sec-why { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
 
   code, .code {
     font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 14px;
@@ -168,12 +171,29 @@
       <details>
         <summary>Comment installer</summary>
         <ol>
-          <li>Double-cliquer sur le zip : il donne <b>MEWFLIX.app</b>. La glisser dans <b>Applications</b>.</li>
-          <li>Premier lancement : macOS dit qu'il ne peut pas vérifier l'app → <b>OK</b>. Puis Réglages Système → Confidentialité et sécurité → en bas, « MEWFLIX a été bloqué » → <b>Ouvrir quand même</b>. (macOS 14 ou plus ancien : clic droit sur l'app → Ouvrir.)</li>
-          <li>Si macOS dit « MEWFLIX est endommagé » : le fichier n'est pas abîmé. Cliquer Annuler, ouvrir <b>Terminal</b> (Applications → Utilitaires) et coller :
+          <li>Double-cliquer sur le zip téléchargé : il donne <b>MEWFLIX.app</b>.</li>
+          <li>Glisser <b>MEWFLIX.app</b> dans le dossier <b>Applications</b> (Finder → Applications).</li>
+          <li>Ouvrir MEWFLIX une première fois : macOS la bloque, c'est normal. Suivre « Autoriser MEWFLIX » juste en dessous.</li>
+        </ol>
+      </details>
+      <details class="security" open>
+        <summary>Autoriser MEWFLIX dans les réglages de sécurité (une seule fois)</summary>
+        <p class="sec-why">L'app n'a pas de certificat Apple payant : au premier lancement, macOS refuse de l'ouvrir. Il faut l'autoriser une fois, ensuite elle s'ouvre normalement.</p>
+        <ol>
+          <li>Double-cliquer sur MEWFLIX. Le message « Apple n'a pas pu confirmer que MEWFLIX ne contenait pas de logiciel malveillant » s'affiche : cliquer <b>Terminé</b> (ou <b>OK</b>). Ne pas cliquer sur « Placer dans la corbeille ».</li>
+          <li>Ouvrir le menu <b>Pomme</b> (la pomme en haut à gauche de l'écran) → <b>Réglages Système</b>.</li>
+          <li>Dans la colonne de gauche, cliquer <b>Confidentialité et sécurité</b>.</li>
+          <li>Descendre tout en bas jusqu'à la partie <b>Sécurité</b>. La ligne « MEWFLIX a été bloqué pour protéger votre Mac » apparaît : cliquer <b>Ouvrir quand même</b>.</li>
+          <li>Entrer le <b>mot de passe du Mac</b> (ou Touch ID), puis cliquer encore <b>Ouvrir quand même</b> dans la fenêtre qui s'affiche.</li>
+          <li>MEWFLIX s'ouvre. C'est réglé pour de bon.</li>
+        </ol>
+        <ul>
+          <li>La ligne « MEWFLIX a été bloqué » n'apparaît qu'<b>après</b> avoir essayé d'ouvrir l'app, et pendant environ une heure. Si elle n'y est pas : refaire l'étape 1, puis revenir dans Réglages.</li>
+          <li>Mac sous <b>macOS 14 (Sonoma) ou plus ancien</b> : plus simple, clic droit (ou Ctrl + clic) sur MEWFLIX dans Applications → <b>Ouvrir</b> → <b>Ouvrir</b>.</li>
+          <li>Si macOS dit « <b>MEWFLIX est endommagé</b>, placez-le dans la corbeille » : le fichier n'est pas abîmé. Cliquer <b>Annuler</b>, ouvrir l'app <b>Terminal</b> (Applications → Utilitaires), coller cette ligne et appuyer sur Entrée :
             <div class="copy"><span class="code">xattr -cr /Applications/MEWFLIX.app</span><button type="button" data-copy="xattr -cr /Applications/MEWFLIX.app">Copier</button></div>
             Puis relancer MEWFLIX.</li>
-        </ol>
+        </ul>
       </details>
     </article>
 
@@ -391,7 +411,11 @@
         el('small', { text: formatSize(asset.size) })
       ]));
     });
-    if (platform.name === 'Mac' && platform.kinds.length > 1) hint.textContent = 'Menu Pomme → À propos de ce Mac → « Puce » : Apple M1 à M4, ou Intel.';
+    if (platform.name === 'Mac') {
+      hint.textContent = (platform.kinds.length > 1 ? 'Menu Pomme → À propos de ce Mac → « Puce » : Apple M1 à M4, ou Intel. ' : '') +
+        'Au premier lancement, il faut autoriser l’app dans les réglages de sécurité : ';
+      hint.appendChild(el('a', { href: '#card-mac', text: 'voir comment' }));
+    }
     if (platform.name === 'Windows') hint.textContent = 'Si Windows affiche un avertissement : « Informations complémentaires » puis « Exécuter quand même ».';
   }
 
